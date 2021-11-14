@@ -7,7 +7,9 @@ import { User } from 'src/app/models/User';
     styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-    users: User[];
+    users: User[] = [];
+    showExtended = true;
+    loaded: boolean = false;
 
     constructor() {}
 
@@ -44,16 +46,13 @@ export class UsersComponent implements OnInit {
                 },
             },
         ];
+
         this.addUser({
             firstName: 'David',
             lastName: 'Jackson',
-            age: 44,
-            address: {
-                street: '12 Wake st',
-                city: 'Miami',
-                state: 'FL',
-            },
         });
+
+        this.loaded = true;
     }
 
     addUser(user: User) {
