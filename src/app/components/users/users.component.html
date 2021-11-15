@@ -3,22 +3,67 @@
 </button>
 <div class="card card-body mb-3" *ngIf="showUserForm">
     <h2>Add User</h2>
-    <form (submit)="onSubmit($event)">
+    <form #userForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label>First Name</label>
-            <input type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" />
+            <input
+                type="text"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': userFirstName.errors && userFirstName.touched }"
+                name="firstName"
+                [(ngModel)]="user.firstName"
+                #userFirstName="ngModel"
+                required
+                minlength="2"
+            />
+            <div [hidden]="!userFirstName.errors?.required" class="invalid-feedback">
+                First Name Required
+            </div>
+            <div [hidden]="!userFirstName.errors?.minlength" class="invalid-feedback">
+                Must be at least 2 characters
+            </div>
         </div>
         <div class="form-group">
             <label>Last Name</label>
-            <input type="text" class="form-control" name="lastName" [(ngModel)]="user.lastName" />
+            <input
+                type="text"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': userLastName.errors && userLastName.touched }"
+                name="lastName"
+                [(ngModel)]="user.lastName"
+                #userLastName="ngModel"
+                required
+                minlength="2"
+            />
+            <div [hidden]="!userLastName.errors?.required" class="invalid-feedback">
+                Last Name Required
+            </div>
+            <div [hidden]="!userLastName.errors?.minlength" class="invalid-feedback">
+                Must be at least 2 characters
+            </div>
         </div>
         <div class="form-group">
             <label>Email</label>
-            <input type="email" class="form-control" name="email" [(ngModel)]="user.email" />
+            <input
+                type="email"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': userEmail.errors && userEmail.touched }"
+                name="email"
+                [(ngModel)]="user.email"
+                #userEmail="ngModel"
+                required
+                pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+            />
+            <div [hidden]="!userEmail.errors?.required" class="invalid-feedback">
+                Email Required
+            </div>
+            <div [hidden]="!userEmail.errors?.pattern" class="invalid-feedback">
+                Email is not valid
+            </div>
         </div>
         <button
             class="btn btn-block mb-3"
-            [disabled]="user.firstName === '' || user.lastName === ''"
+            [disabled]="!userForm.form.valid"
             style="cursor: pointer"
         >
             Add New User
