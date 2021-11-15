@@ -11,6 +11,7 @@ export class UsersComponent implements OnInit {
     showExtended = true;
     loaded: boolean = false;
     enableAdd = true;
+    currentClasses: {};
 
     constructor() {}
 
@@ -19,13 +20,14 @@ export class UsersComponent implements OnInit {
             {
                 firstName: 'John',
                 lastName: 'Doe',
-                age: 30,
+                age: 70,
                 address: {
                     street: '50 Main st',
                     city: 'Boston',
                     state: 'MA',
                 },
                 image: 'http://lorempixel.com/600/600/people/3',
+                isActive: true,
             },
             {
                 firstName: 'Kevin',
@@ -37,6 +39,7 @@ export class UsersComponent implements OnInit {
                     state: 'MA',
                 },
                 image: 'http://lorempixel.com/600/600/people/2',
+                isActive: false,
             },
             {
                 firstName: 'Karen',
@@ -48,6 +51,7 @@ export class UsersComponent implements OnInit {
                     state: 'FL',
                 },
                 image: 'http://lorempixel.com/600/600/people/1',
+                isActive: true,
             },
         ];
 
@@ -57,9 +61,18 @@ export class UsersComponent implements OnInit {
         // });
 
         this.loaded = true;
+
+        this.setCurrentClasses();
     }
 
     addUser(user: User) {
         this.users.push(user);
+    }
+
+    setCurrentClasses() {
+        this.currentClasses = {
+            'btn-success': this.enableAdd,
+            'big-text': this.showExtended,
+        };
     }
 }
