@@ -8,19 +8,15 @@ import { PostService } from 'src/app/services/post.service';
     styleUrls: ['./post-form.component.css'],
 })
 export class PostFormComponent implements OnInit {
-    @Output() newPost: EventEmitter<Post> = new EventEmitter();
-
     constructor(private postService: PostService) {}
 
     ngOnInit(): void {}
 
     addPost(title, body) {
         if (!title || !body) {
-            alert('Please add post');
+            alert('Please add post Title and Body');
         } else {
-            this.postService.savePost({ title, body } as Post).subscribe((post) => {
-                this.newPost.emit(post);
-            });
+            this.postService.savePost({ title, body } as Post).subscribe();
         }
     }
 }

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Post } from '../models/Post';
 
@@ -13,14 +14,30 @@ const httpOptions = {
 })
 export class PostService {
     postsUrl = 'https://jsonplaceholder.typicode.com/posts';
+    private postsSource = new BehaviorSubject<Post[]>([]);
+    posts$ = this.postsSource.asObservable();
 
     constructor(private http: HttpClient) {}
 
-    getPosts(): Observable<Post[]> {
-        return this.http.get<Post[]>(this.postsUrl);
+    getCurrentPosts() {
+        return this.postsSource.value;
     }
 
-    savePost(post: Post): Observable<Post> {
-        return this.http.post<Post>(this.postsUrl, post, httpOptions);
+    loadPosts() {
+        return this.http.get<Post[]>(this.postsUrl).pipe(
+            map((posts) => {
+                this.postsSource.next(posts);
+            }),
+        );
+    }
+
+    savePost(post: Post) {
+        return this.http.post<Post>(this.postsUrl, post, httpOptions).pipe(
+            map((post) => {
+                const posts = this.getCurrentPosts();
+                posts.unshift(post);
+                this.postsSource.next(posts);
+            }),
+        );
     }
 }
