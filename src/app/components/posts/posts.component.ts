@@ -10,6 +10,12 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class PostsComponent implements OnInit {
     posts$: Observable<Post[]>;
+    currentPost: Post = {
+        id: 0,
+        title: '',
+        body: '',
+    };
+    isEdit: boolean = false;
 
     constructor(private postService: PostService) {}
 
@@ -17,5 +23,10 @@ export class PostsComponent implements OnInit {
         this.posts$ = this.postService.posts$;
 
         this.postService.loadPosts().subscribe();
+    }
+
+    editPost(post: Post) {
+        this.currentPost = post;
+        this.isEdit = true;
     }
 }
