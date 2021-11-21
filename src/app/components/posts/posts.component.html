@@ -1,4 +1,8 @@
-<app-post-form [currentPost]="currentPost" [isEdit]="isEdit"></app-post-form>
+<app-post-form
+    [currentPost]="currentPost"
+    [isEdit]="isEdit"
+    (onUpdatedPost)="onUpdatePost()"
+></app-post-form>
 <h2>Posts</h2>
 <div class="card" *ngFor="let post of posts$ | async">
     <div class="card-body">

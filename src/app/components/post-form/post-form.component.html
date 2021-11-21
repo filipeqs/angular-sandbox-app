@@ -26,12 +26,18 @@
         <button
             *ngIf="!isEdit"
             class="btn btn-dark btn-block"
+            style="cursor: pointer"
             (click)="addPost(title.value, body.value)"
         >
             Add Post
         </button>
 
-        <button *ngIf="isEdit" class="btn btn-warning btn-block" (click)="updatePost()">
+        <button
+            *ngIf="isEdit"
+            class="btn btn-warning btn-block"
+            style="cursor: pointer"
+            (click)="updatePost()"
+        >
             Update Post
         </button>
     </form>

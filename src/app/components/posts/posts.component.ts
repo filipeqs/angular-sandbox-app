@@ -29,4 +29,13 @@ export class PostsComponent implements OnInit {
         this.currentPost = post;
         this.isEdit = true;
     }
+
+    onUpdatePost() {
+        this.isEdit = false;
+        this.currentPost = {
+            id: 0,
+            title: '',
+            body: '',
+        };
+    }
 }

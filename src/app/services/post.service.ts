@@ -40,4 +40,21 @@ export class PostService {
             }),
         );
     }
+
+    updatePost(post: Post) {
+        const url = `${this.postsUrl}/${post.id}`;
+
+        return this.http.put<Post>(url, post, httpOptions).pipe(
+            map((post) => {
+                const posts = this.getCurrentPosts();
+                posts.forEach((cur, index) => {
+                    if (post.id === cur.id) {
+                        posts.splice(index, 1);
+                        posts.unshift(post);
+                    }
+                });
+                this.postsSource.next(posts);
+            }),
+        );
+    }
 }
