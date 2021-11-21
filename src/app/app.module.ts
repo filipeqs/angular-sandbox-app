@@ -11,10 +11,12 @@ import { UserService } from './services/user.service';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostService } from './services/post.service';
 import { PostFormComponent } from './components/post-form/post-form.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
-    declarations: [AppComponent, UserComponent, UsersComponent, NavbarComponent, PostsComponent, PostFormComponent],
-    imports: [BrowserModule, FormsModule, HttpClientModule],
+    declarations: [AppComponent, UserComponent, UsersComponent, NavbarComponent, PostsComponent, PostFormComponent, HomeComponent],
+    imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
     providers: [UserService, PostService],
     bootstrap: [AppComponent],
 })
