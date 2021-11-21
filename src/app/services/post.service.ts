@@ -57,4 +57,16 @@ export class PostService {
             }),
         );
     }
+
+    removePost(id: number) {
+        return this.http.delete(`${this.postsUrl}/${id}`, httpOptions).pipe(
+            map(() => {
+                const posts = this.getCurrentPosts();
+                posts.forEach((cur, index) => {
+                    if (id === cur.id) posts.splice(index, 1);
+                });
+                this.postsSource.next(posts);
+            }),
+        );
+    }
 }

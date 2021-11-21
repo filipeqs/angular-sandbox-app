@@ -38,4 +38,17 @@ export class PostsComponent implements OnInit {
             body: '',
         };
     }
+
+    removePost(post: Post) {
+        if (confirm('Are you sure?')) {
+            this.postService.removePost(post.id).subscribe(() => {
+                this.isEdit = false;
+                this.currentPost = {
+                    id: 0,
+                    title: '',
+                    body: '',
+                };
+            });
+        }
+    }
 }
