@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/models/Post';
@@ -12,11 +11,7 @@ import { PostService } from 'src/app/services/post.service';
 export class PostComponent implements OnInit {
     post: Post;
 
-    constructor(
-        private postService: PostService,
-        private route: ActivatedRoute,
-        private location: Location,
-    ) {}
+    constructor(private postService: PostService, private route: ActivatedRoute) {}
 
     ngOnInit(): void {
         const id = +this.route.snapshot.paramMap.get('id');
