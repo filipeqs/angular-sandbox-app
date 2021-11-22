@@ -31,6 +31,12 @@ export class PostService {
         );
     }
 
+    getPost(id: number) {
+        const url = `${this.postsUrl}/${id}`;
+
+        return this.http.get<Post>(url);
+    }
+
     savePost(post: Post) {
         return this.http.post<Post>(this.postsUrl, post, httpOptions).pipe(
             map((post) => {
